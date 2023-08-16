@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles/style.css" />
+        <title>Pokemon Style</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header class="header">
+                <h1>Pokémon Style</h1>
+            </header>
+            <main class="main">
+                <div class="center">
+                    <div class="user-input">
+                        <input
+                            type="number"
+                            id="pokemon-id"
+                            name="pokemon-id"
+                            placeholder="enter Pokemon Id"
+                            class="user-input-holder"
+                        />
+                        <button class="search" id="search-pokemon">
+                            <span>Find Pokémon</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="root"></div>
+            </main>
+            <footer class="footer">
+                <p class="footer-pokemon">2023 design</p>
+            </footer>
+        </div>
+        <script type="module" src="./src/init.js"></script>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+# Ignore build artifacts
+build/
+dist/
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore IDE and editor-specific files
+.vscode/
+.idea/
+
+# Ignore log files
+*.log
+
+# Ignore sensitive information (e.g., credentials)
+.env
+secrets.txt
