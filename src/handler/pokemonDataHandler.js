@@ -6,25 +6,60 @@ import pokemonIdControl from '../data/data.js';
 
 const pokemonDataHandler = async () => {
   const inputId = dom.inputId.value;
-  if (pokemonIdControl.pokemonId === inputId || inputId === '') {
-    return;
+
+  const validateIds = [];
+
+  const ids = inputId.split(',').map((id) => Number(id.trim()));
+
+  for (const id of ids) {
+    const idCheckNumber = Number(id);
+    if (
+      !Number.isNaN(idCheckNumber) &&
+      idCheckNumber > 0 &&
+      idCheckNumber < 1281
+    ) {
+      validateIds.push(idCheckNumber);
+    } else {
+      const text = 'Pokémon ID out of interval. Please Repeat.';
+      const pokemonError = createErrorComponent(text);
+      dom.root.innerText = '';
+      dom.inputId.value = '';
+      dom.root.append(pokemonError);
+      return;
+    }
   }
-  const data = await pokemonDataApi(inputId);
-  if (!data) {
-    const pokemonError = createErrorComponent();
+
+  if (validateIds.length === 0) {
+    const text = 'Enter the input Pokémon ID. Empty is not enough.';
+    const pokemonError = createErrorComponent(text);
     dom.root.innerText = '';
     dom.inputId.value = '';
     dom.root.append(pokemonError);
     return;
   }
 
-  const pokemon = createPokemonComponents(data);
+  const pokemonData = validateIds.map((id) => pokemonDataApi(id));
+
+  const dates = await Promise.all(pokemonData);
+  if (!dates) {
+    const text = 'I am sorry, but the Pokémon are so busy.';
+
+    const pokemonError = createErrorComponent(text);
+    dom.root.innerText = '';
+    dom.inputId.value = '';
+    dom.root.append(pokemonError);
+    return;
+  }
+
   dom.root.innerText = '';
-  dom.root.append(pokemon);
+
+  dates.forEach((data) => {
+    const pokemon = createPokemonComponents(data);
+    dom.root.append(pokemon);
+  });
 
   dom.inputId.value = '';
   pokemonIdControl.pokemonId = inputId;
-  // console.log(dom);
 };
 
 export default pokemonDataHandler;

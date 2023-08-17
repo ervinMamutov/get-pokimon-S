@@ -1,5 +1,5 @@
 const pokemonIdControl = {
-  pokemonId: null,
+  pokemonId: [],
 };
 
 export default pokemonIdControl;
